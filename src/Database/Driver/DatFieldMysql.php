@@ -3,6 +3,9 @@ namespace Lqdt\OrmJson\Database\Driver;
 
 use Cake\Database\Driver\Mysql;
 use Cake\Database\Expression\Comparison;
+use Cake\Database\StatementInterface;
+use Cake\Database\Query;
+use Closure;
 use Lqdt\OrmJson\Database\Dialect\DatFieldMysqlExpressionConverterTrait;
 use Lqdt\OrmJson\Database\Dialect\DatFieldMysqlOrderTrait;
 use Lqdt\OrmJson\Database\Dialect\DatFieldMysqlSelectTrait;
@@ -13,7 +16,7 @@ class DatFieldMysql extends Mysql
     use DatFieldMysqlOrderTrait;
     use DatFieldMysqlSelectTrait;
 
-    public function queryTranslator($type)
+    public function queryTranslator($type): Closure
     {
         return function ($query) use ($type) {
             try {
@@ -59,7 +62,7 @@ class DatFieldMysql extends Mysql
         };
     }
 
-    public function prepare($query)
+    public function prepare($query): StatementInterface
     {
         if ($query instanceof \Cake\ORM\Query) {
             // debug($query);
@@ -72,7 +75,7 @@ class DatFieldMysql extends Mysql
      * We need to override this method from SqlDialectTrait as it breaks apart datfields with delete
      * @inheritDoc
      */
-    protected function _removeAliasesFromConditions($query)
+    protected function _removeAliasesFromConditions($query): Query
     {
         if ($query->clause('join')) {
             throw new \RuntimeException(
