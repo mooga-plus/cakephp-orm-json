@@ -22,7 +22,7 @@ class DatFieldMysql extends Mysql
             try {
                 $repository = $query->getRepository();
 
-                if ($repository->hasBehavior('Datfield') || $repository->hasBehavior('Lqdt\OrmJson\Model\Behavior\DatFieldBehavior')) {
+                if ($repository->hasBehavior('DatField') || $repository->hasBehavior('Lqdt\OrmJson\Model\Behavior\DatFieldBehavior')) {
                     // Process order
                     $order = $query->clause('order');
                     if (!empty($order)) {
