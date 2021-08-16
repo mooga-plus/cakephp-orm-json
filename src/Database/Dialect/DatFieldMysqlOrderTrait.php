@@ -60,7 +60,7 @@ trait DatFieldMysqlOrderTrait
 
         if ($updated) {
             // restore autofields if needeed
-            $query->enableAutoFields($autofields);
+            $query->enableAutoFields();
             $query->mapReduce(function ($row, $key, $mapReduce) use ($aliases) {
                 $mapReduce->emit($this->_removeOrderingFields($row, $aliases));
             });
